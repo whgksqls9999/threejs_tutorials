@@ -4,7 +4,7 @@
 	"description": "",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "parcel ./src/js/scripts.js"
+		"run": "parcel ./src/index.html"
 	},
 	"keywords": [],
 	"author": "",
@@ -12,5 +12,8 @@
 	"dependencies": {
 		"parcel": "^2.16.0",
 		"three": "^0.180.0"
+	},
+	"devDependencies": {
+		"buffer": "^6.0.3"
 	}
 }
