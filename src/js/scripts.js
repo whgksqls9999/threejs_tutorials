@@ -126,6 +126,28 @@ window.addEventListener('mousemove', (e) => {
 
 const rayCaster = new THREE.Raycaster();
 
+const vShader = `
+	void main() {
+		gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+	}
+`;
+
+const fShader = `
+	void main(){
+		gl_FragColor = vec4(0.5, 0.5, 1.0, 1);
+	}
+`;
+
+const sphere2Geometry = new THREE.SphereGeometry(4);
+const sphere2Material = new THREE.ShaderMaterial({
+	vertexShader: vShader,
+	fragmentShader: fShader,
+	// vertexShader: document.getElementById('vertexShader').textContent,
+	// fragmentShader: document.getElementById('fragmentShader').textContent,
+});
+const sphere2 = new THREE.Mesh(sphere2Geometry, sphere2Material);
+scene.add(sphere2);
+
 const gui = new dat.GUI();
 
 const options = {
