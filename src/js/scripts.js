@@ -1,9 +1,12 @@
 import * as THREE from 'three';
 import * as dat from 'dat.gui';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
+import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 
 import nebula from '../img/nebula.jpg';
 import stars from '../img/stars.jpg';
+
+const someURL = new URL('../assets/some.glb', import.meta.url);
 
 /** 1. 렌더러 인스턴스를 생성한다 */
 const renderer = new THREE.WebGLRenderer();
@@ -148,6 +151,20 @@ const sphere2Material = new THREE.ShaderMaterial({
 const sphere2 = new THREE.Mesh(sphere2Geometry, sphere2Material);
 scene.add(sphere2);
 
+const assetLoader = new GLTFLoader();
+assetLoader.load(
+	someURL.href,
+	(gltf) => {
+		const model = gltf.scene;
+		scene.add(model);
+		model.position.set(-10, 5, -10);
+	},
+	undefined,
+	(error) => {
+		console.error(error);
+	}
+);
+
 const gui = new dat.GUI();
 
 const options = {
@@ -198,3 +215,9 @@ function animate(time) {
 }
 
 renderer.setAnimationLoop(animate);
+
+window.addEventListener('resize', () => {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+});
