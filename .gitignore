@@ -34,3 +34,5 @@ Thumbs.db
 # swap files
 *.swp
 *.swo
+
+template.js
